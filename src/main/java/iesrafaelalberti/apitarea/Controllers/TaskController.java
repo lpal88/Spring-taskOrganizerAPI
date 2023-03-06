@@ -1,49 +1,30 @@
 package iesrafaelalberti.apitarea.Controllers;
 
 import iesrafaelalberti.apitarea.Models.Task;
-import iesrafaelalberti.apitarea.Repositories.TaskRepository;
+import iesrafaelalberti.apitarea.Services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Optional;
+import java.io.IOException;
+import java.util.Base64;
+
 
 @RestController
 public class TaskController {
     @Autowired
-    private TaskRepository taskRepository;
+    TaskService taskService;
 
-    @GetMapping("/tasks")
-    public ResponseEntity<Object> taskList() {
-        return new ResponseEntity<>(taskRepository.findAll(), HttpStatus.OK);
-    }
-    @GetMapping("/tasks/{id}")
-    public ResponseEntity<Object> taskShow(@PathVariable("id") Long id) {
-        return new ResponseEntity<>(taskRepository.findById(id), HttpStatus.OK);
+    @PostMapping("/pictograms/add")
+    public String addPictogram(@RequestParam("description") String description,
+                         @RequestParam("pictogram") MultipartFile pictogram)
+            throws IOException {
+        return taskService.addTask(description, pictogram);
     }
 
-    @PostMapping("/tasks/create")
-    public ResponseEntity<Object> taskCreate(@RequestBody Task task) {
-        taskRepository.save(task);
-        return new ResponseEntity<>(task, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(value="/tasks/{id}", method={RequestMethod.PUT, RequestMethod.GET})
-    public ResponseEntity<Object> taskUpdate(@PathVariable("id") Long id, @RequestBody Task task) {
-        Optional<Task> oldTask = taskRepository.findById(id);
-        if(oldTask.isPresent()) {
-            task.setId(id);
-            taskRepository.save(task);
-            return new ResponseEntity<>(task, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-    }
-
-    @RequestMapping(value="/tasks/{id}", method={RequestMethod.DELETE, RequestMethod.GET})
-    public ResponseEntity<Object> taskDelete(@PathVariable("id") Long id) {
-        Optional<Task> task =  taskRepository.findById(id);
-        task.ifPresent(value ->  taskRepository.delete(value));
-        return new ResponseEntity<>(task.isPresent(), HttpStatus.OK);
+    @GetMapping("/pictograms/{id}")
+    public String getPictogram(@PathVariable String id) {
+        Task image = taskService.getImage(id);
+        return "<img src=\"data:image/jpeg;base64, " + Base64.getEncoder().encodeToString(image.getPictogram().getData()) + "\">";
     }
 }

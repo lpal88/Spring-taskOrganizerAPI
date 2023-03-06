@@ -1,6 +1,7 @@
 package iesrafaelalberti.apitarea.Models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import iesrafaelalberti.apitarea.dto.BoardCreateDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,5 +30,8 @@ public class Board {
     public Board(String label, Userlo userlo) {
         this.label = label;
         this.userlo = userlo;
+    }
+    public Board(BoardCreateDTO newBoard) {
+        this.label = newBoard.getLabel();
     }
 }

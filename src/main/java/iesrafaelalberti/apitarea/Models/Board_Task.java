@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Map;
-
 @Entity @Getter @Setter
 public class Board_Task {
     @Id
@@ -15,15 +13,15 @@ public class Board_Task {
     @ManyToOne
     @JoinColumn()
     private Board board;
-    @ManyToOne
-    @JoinColumn()
-    private Task task;
+//    @ManyToOne
+//    @JoinColumn()
+//    private Task task;
 
     public Board_Task() {
     }
     public Board_Task(Board board, Task task) {
         this.board = board;
-        this.task = task;
+//        this.task = task;
     }
 
 }

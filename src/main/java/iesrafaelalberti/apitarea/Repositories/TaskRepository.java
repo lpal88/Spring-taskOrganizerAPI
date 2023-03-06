@@ -1,11 +1,9 @@
 package iesrafaelalberti.apitarea.Repositories;
 
 import iesrafaelalberti.apitarea.Models.Task;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-import java.util.Optional;
-
-public interface TaskRepository extends CrudRepository<Task, Long> {
+public interface TaskRepository extends MongoRepository<Task, String> {
     // you can add more query's declaring specific methods
 
 }
