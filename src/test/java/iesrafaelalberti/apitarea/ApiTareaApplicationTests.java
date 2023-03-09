@@ -62,7 +62,7 @@ class ApiTareaApplicationTests {
             .contentType(MediaType.APPLICATION_JSON)
             .accept(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated())
-            .andExpect(jsonPath("$.id").exists());
+            .andExpect(jsonPath("$.id").value(3));
         assert userloRepository.count() == 3;
     }
     public static String asJsonString(final Object obj) {
