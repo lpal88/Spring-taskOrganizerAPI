@@ -2,7 +2,9 @@ package iesrafaelalberti.apitarea.BootStrap;
 
 import iesrafaelalberti.apitarea.Models.Board;
 import iesrafaelalberti.apitarea.Models.Task;
+import iesrafaelalberti.apitarea.Models.User;
 import iesrafaelalberti.apitarea.Models.Userlo;
+import iesrafaelalberti.apitarea.Repositories.UserRepository;
 import iesrafaelalberti.apitarea.Repositories.BoardRepository;
 import iesrafaelalberti.apitarea.Repositories.TaskRepository;
 import iesrafaelalberti.apitarea.Repositories.UserloRepository;
@@ -18,12 +20,16 @@ public class Seeder implements CommandLineRunner {
     private BoardRepository boardRepository;
     @Autowired
     private TaskRepository taskRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public void run(String[] args) {
         // Create sample entities for testing purposes
         Userlo u1, u2;
         Board b1, b2;
         Task t1, t2;
+        User user1 = new User("paca", "aitortilla");
+        userRepository.save(user1);
         u1 = userloRepository.save(new Userlo("daniela", "pestillo"));
         u2 = userloRepository.save(new Userlo("teresa", "pestillo"));
         b1 = boardRepository.save(new Board("morning",u1));

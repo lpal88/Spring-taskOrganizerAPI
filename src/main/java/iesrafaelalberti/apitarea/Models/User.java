@@ -1,10 +1,10 @@
 package iesrafaelalberti.apitarea.Models;
 
 import jakarta.persistence.*;
-        import lombok.Getter;
-        import lombok.NoArgsConstructor;
-        import lombok.Setter;
-        import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 @Entity
